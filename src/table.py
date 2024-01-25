@@ -17,9 +17,9 @@ class Seat:
     
 class Table:
     '''A table is a place where a group of people can sit. It has a capacity and a list of seats'''
-    def __init__(self, capacity, seats=[]):
+    def __init__(self, capacity, seats=[*Seat]):
         self.capacity = capacity
-        self.seats = seats
+        self.seats = [Seat]*capacity
 
     def has_free_spot(self):
         return True if seat.free in (seat for seat in self.seats) else False
