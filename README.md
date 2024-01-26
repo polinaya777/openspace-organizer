@@ -12,7 +12,7 @@ To install and run the OpenSpace Organizer, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/polinaya777/openspace-organizer`
 2. Navigate to the project directory: `cd openspace-organizer`
-3. Install necessary packages: `numpy`, `pandas`, `random`, `tabulate`
+3. Install necessary packages: [`numpy`](https://numpy.org/), [`pandas`](https://pandas.pydata.org/), [`tabulate`](https://pypi.org/project/tabulate/)
 4. Start the application: `py main.py`
 
 ## Usage
