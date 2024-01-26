@@ -10,8 +10,8 @@ class OpenSpace:
         self.tables = [Table() for x in range(number_of_tables)]
 
     def organize(self, names):
-        if len(names) > sum([table.capacity for table in self.tables]):
-            raise Exception('There are not enough seats for all the people!\nUse other OpenSpace or remove some people!\n')
+        if len(names) > sum([seat.free for table in self.tables for seat in table.seats]):
+            raise Exception('There are not enough seats for all the people!\nUse other OpenSpace or remove some people from the list or from the OpenSpace!\n')
         else:
             print(f'\nOrganizing {len(names)} people in {self.number_of_tables} tables...\n')
             for name in names:                
@@ -20,9 +20,9 @@ class OpenSpace:
                     if table.has_free_spot():
                         table.assign_seat(name)
                         break
-            print(f'\nAll people have been assigned to a seat.\nYou can enjoy the event!\n')
+            print(f'All people have been assigned to a seat.\nYou can enjoy the event!\n')
             self.display_df()
-            return True
+            return None
     
     def make_df(self):
         '''Make a Pandas DataFrame of the open space'''
@@ -34,14 +34,16 @@ class OpenSpace:
 
     def display_df(self):
         '''Display the open space through a Pandas DataFrame and dictionary of seats'''        
-        print(f'Open space with {self.number_of_tables} tables with total {self.number_of_tables*self.tables[0].capacity} seats:')
+        total_seats = self.number_of_tables*self.tables[0].capacity
+        free_seats = sum([seat.free for table in self.tables for seat in table.seats])
+        print(f'Open space with {self.number_of_tables} tables with total {total_seats} seats from which {total_seats - free_seats} are occupied:')
         print(tabulate(self.make_df(), headers='keys', tablefmt='fancy_grid'))
-        if not any(not table.has_free_spot() for table in self.tables):
-            print(f'All tables are free!\n')
-        elif all(not table.has_free_spot() for table in self.tables):
+        if all(not table.has_free_spot() for table in self.tables):
             print(f'All tables are occupied!\n')
+        elif any(not table.has_free_spot() for table in self.tables):
+            print(f'We still have {free_seats} free seats!\n')
         else:
-            print(f'We still have free seats!\n')
+            print(f'All tables are free!\n')
         return None
     
     def display_print(self):
