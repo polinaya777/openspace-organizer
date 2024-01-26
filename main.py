@@ -16,6 +16,7 @@ def welcome():
     print('''
     Welcome to the OpenSpace Organizer!
     This program will help you organize your colleagues in an OpenSpace.
+    OpenSpace has 6 tables with 4 seats each. 
     You can import a list of names from an Excel file.
     You can also export the result to an Excel file.\n''')
     return None
@@ -102,7 +103,7 @@ Please enter the number of the table: '''))
 
 def main():
     '''Main function'''
-    openspace = OpenSpace(6)
+    openspace = OpenSpace(6,4)
     welcome()
     while True:
         try:

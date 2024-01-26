@@ -31,12 +31,19 @@ class Seat:
 class Table:
     '''A table is a place where a group of people can sit. It has a capacity and a list of seats'''
     table_count = 0
-    def __init__(self, capacity=4):
+    def __init__(self, capacity):
         self.capacity = capacity
-        self.seats = [Seat() for x in range(capacity)]
+        self.seats = [Seat() for i in range(capacity)]
         Table.table_count += 1
         self.table_number = Table.table_count
 
+    """ def change_capacity(self, new_capacity):
+        if new_capacity < self.capacity:
+            self.seats = self.seats[:new_capacity]
+        elif new_capacity > self.capacity:
+            self.seats.extend([Seat() for x in range(new_capacity-self.capacity)])
+        self.capacity = new_capacity """
+    
     def has_free_spot(self):
         return any(seat.free for seat in self.seats)
     
@@ -47,7 +54,6 @@ class Table:
                 if seat.free:
                     seat.set_occupant(name)
                     break
-            #print(f'{name} has been assigned to seat {seat.seat_number} at table {self.table_number}')
             return True
 
     def capacity_left(self):

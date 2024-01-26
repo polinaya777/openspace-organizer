@@ -5,9 +5,11 @@ from tabulate import tabulate
 
 class OpenSpace:
     '''An open space is a place where a group of people can sit. It has a capacity and a list of tables'''
-    def __init__(self, number_of_tables=6):
+    openspace_count = 0
+    def __init__(self, number_of_tables, table_capacity):
         self.number_of_tables = number_of_tables
-        self.tables = [Table() for x in range(number_of_tables)]
+        self.tables = [Table(table_capacity) for i in range(number_of_tables)]
+        OpenSpace.openspace_count += 1
 
     def organize(self, names):
         '''Organize the people randomly in the open space'''
