@@ -10,19 +10,17 @@ class OpenSpace:
         self.tables = [Table() for x in range(number_of_tables)]
 
     def organize(self, names):
-        if len(names) > sum([seat.free for table in self.tables for seat in table.seats]):
-            raise Exception('There are not enough seats for all the people!\nUse other OpenSpace or remove some people from the list or from the OpenSpace!\n')
-        else:
-            print(f'\nOrganizing {len(names)} people in {self.number_of_tables} tables...\n')
-            for name in names:                
-                while True:
-                    table = self.tables[randint(0,5)]
-                    if table.has_free_spot():
-                        table.assign_seat(name)
-                        break
-            print(f'All people have been assigned to a seat.\nYou can enjoy the event!\n')
-            self.display_df()
-            return None
+        '''Organize the people randomly in the open space'''
+        print(f'\nOrganizing {len(names)} people in {self.number_of_tables} tables...\n')
+        for name in names:                
+            while True:
+                table = self.tables[randint(0,5)]
+                if table.has_free_spot():
+                    table.assign_seat(name)
+                    break
+        print(f'All people have been assigned to a seat.\nYou can enjoy the event!\n')
+        self.display_df()
+        return True
     
     def make_df(self):
         '''Make a Pandas DataFrame of the open space'''
