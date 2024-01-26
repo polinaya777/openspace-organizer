@@ -73,7 +73,7 @@ def handel_menu_choice(choice: int, openspace: OpenSpace):
                     print(f'\n{removed} has been removed from the OpenSpace!\n')
                     break
             except:
-                print('Please enter the valid option!\n')
+                print('Please enter a valid number of table and/or seat!\n')
     
     elif choice == 5:
         openspace.make_df().to_excel('result.xlsx')
