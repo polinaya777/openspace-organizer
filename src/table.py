@@ -9,6 +9,8 @@ class Seat:
         self.ocupant = ocupant
         Seat.seat_count += 1
         self.seat_number = Seat.seat_count
+        if self.seat_number == 4:
+            Seat.seat_count = 0
 
     def set_occupant(self, name):
         if self.free:
@@ -17,13 +19,13 @@ class Seat:
         else:
             print('This seat is already occupied!')
         
-    def remove_occupant(self):        
+    def remove_occupant(self):
         if not self.free:
             removed, self.ocupant = self.ocupant, ''
             self.free = True
             return removed
         else:
-            print('This seat is already free!')
+            print('This seat is not occupied!')
             return None
     
 class Table:
@@ -45,7 +47,7 @@ class Table:
                 if seat.free:
                     seat.set_occupant(name)
                     break
-            print(f'{name} has been assigned to seat {seat.seat_number} at table {self.table_number}!')
+            #print(f'{name} has been assigned to seat {seat.seat_number} at table {self.table_number}')
             return True
 
     def capacity_left(self):
