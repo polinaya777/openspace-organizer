@@ -41,7 +41,7 @@ Attributes of class: number of tables, number of seats for each of tables and a 
         print(tabulate(self.make_df(), headers='keys', tablefmt='fancy_grid'))
         if all(not table.has_free_spot() for table in self.tables):
             print(f'All tables are occupied!\n')
-        elif any(not table.has_free_spot() for table in self.tables):
+        elif any(table.has_free_spot() for table in self.tables):
             print(f'We still have {free_seats} free seats!\n')
         else:
             print(f'All tables are free!\n')

@@ -79,16 +79,16 @@ def handel_menu_choice(choice: int, openspace: OpenSpace):
         print(f'\nWe have {free_seats} free seats in the OpenSpace.')
         print(f'\nNames list to assign: {names_list}')
         try:                
-            if len(names_list) <= free_seats:
+            if len(names_list) > total_seats:
+                print(f'''\nThere are not enough seats for {len(names_list)} people in this OpenSpace! You need to use the bigger one.\n''')
+            elif len(names_list) <= free_seats:
                 openspace.organize(names_list)
-                return True
-            elif len(names_list) > total_seats:
-                print(f'''There are not enough seats for {len(names_list)} people in this OpenSpace! You need to use the bigger one.\n''')
+                return True            
             else:
-                print(f'''There are not enough free seats for {len(names_list)} people!\n
+                print(f'''\nThere are not enough free seats for {len(names_list)} people!
 You can add maximum {free_seats} people or at first remove people from the OpenSpace.\n''')
         except:
-            print('Something went wrong with organizing people\n')
+            print('\nSomething went wrong with organizing people\n')
     
     elif choice == 3:        
         while True:
@@ -100,14 +100,17 @@ Please enter the names separated by comma: ''').split(",")
             except:
                 print('Your enter is not valid!\n')
         free_seats = sum([seat.free for table in openspace.tables for seat in table.seats])
+        total_seats = openspace.number_of_tables*openspace.tables[0].capacity
         print(f'\nWe have {free_seats} free seats in the OpenSpace.')
         print(f'Names list to assign: {add_list}')        
         try:                
-            if len(add_list) <= free_seats:
+            if len(add_list) > total_seats:
+                print(f'''\nThere are not enough seats for {len(add_list)} people in this OpenSpace! You need to use the bigger one.\n''')
+            elif len(add_list) <= free_seats:
                 openspace.organize(add_list)
                 return True
             else:
-                print(f'''There are not enough free seats for {len(add_list)} people!
+                print(f'''\nThere are not enough free seats for {len(add_list)} people!
 You can add maximum {free_seats} people or at first remove people from the OpenSpace.\n''')
         except:
             print('Something went wrong with adding people\n')
