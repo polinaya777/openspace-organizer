@@ -83,9 +83,9 @@ def handel_menu_choice(choice: int, openspace: OpenSpace):
                 openspace.organize(names_list)
                 return True
             elif len(names_list) > total_seats:
-                print(f'''There are not enough seats for {len(names_list)} people in this OpenSpace!\n''')
+                print(f'''There are not enough seats for {len(names_list)} people in this OpenSpace! You need to use the bigger one.\n''')
             else:
-                print(f'''There are not enough free seats for {len(names_list)} people!
+                print(f'''There are not enough free seats for {len(names_list)} people!\n
 You can add maximum {free_seats} people or at first remove people from the OpenSpace.\n''')
         except:
             print('Something went wrong with organizing people\n')

@@ -4,7 +4,7 @@ This is the README file for the OpenSpace Organizer project.
 
 ## Introduction
 
-The OpenSpace Organizer is a Python-project aimed at creating a web application for managing and organizing open office spaces. It provides features such as tables and seats. You can import a list of names from an Excel file to organize them randomly in OpenSpace. You can also export the result to an Excel file.
+The OpenSpace Organizer is a Python-project aimed at creating a console application for managing and organizing virtual open office spaces. It provides features such as tables and seats. You can use the default OpenSpace with 6 tables and 4 seats for each table or create your own set up. You can import a list of names from an Excel file to organize people randomly in OpenSpace. You can also export the result to an Excel file.
 
 ## Installation
 
