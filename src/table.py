@@ -1,7 +1,7 @@
 from random import randint
 
 class Seat:
-    '''A seat is a place where a person can sit. It can be free or occupied by a person'''
+    '''A seat is a place where a person can sit. It can be free or occupied by a person with a certain name'''
     seat_count = 0
 
     def __init__(self, free=True, ocupant=''):
@@ -29,20 +29,13 @@ class Seat:
             return None
     
 class Table:
-    '''A table is a place where a group of people can sit. It has a capacity and a list of seats'''
+    '''A table is a place where a group of people can sit. It has a seat capacity and a list of seats'''
     table_count = 0
     def __init__(self, capacity):
         self.capacity = capacity
         self.seats = [Seat() for i in range(capacity)]
         Table.table_count += 1
         self.table_number = Table.table_count
-
-    """ def change_capacity(self, new_capacity):
-        if new_capacity < self.capacity:
-            self.seats = self.seats[:new_capacity]
-        elif new_capacity > self.capacity:
-            self.seats.extend([Seat() for x in range(new_capacity-self.capacity)])
-        self.capacity = new_capacity """
     
     def has_free_spot(self):
         return any(seat.free for seat in self.seats)

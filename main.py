@@ -2,6 +2,29 @@ import pandas as pd
 from numpy import ndarray
 from src.openspace import OpenSpace
 
+def create_openspace():
+    '''Create an OpenSpace'''
+    print('First we need to create an OpenSpace.')
+    while True:
+        user_input = input('Do you want to create your own OpenSpace (Y) or use the default one (N)? ').lower()
+        if user_input == 'y':
+            while True:
+                try:
+                    number_of_tables = int(input('Please enter the number of tables: '))
+                    table_capacity = int(input('Please enter the number of seats for each table: '))
+                    break
+                except:
+                    print('Please enter a valid number!\n')
+            openspace = OpenSpace(number_of_tables, table_capacity)
+            break
+        elif user_input == 'n':
+            openspace = OpenSpace(6, 4)
+            break
+        else:
+            print('Please enter Y or N!\n')
+    print(f'OpenSpace with {openspace.number_of_tables} tables and {openspace.tables[0].capacity} seats for each table has been created!\n')
+    return openspace
+
 def excel_file_to_list(filename: str):
     '''Import an Excel file and return a list of names'''
     df_names = pd.read_excel(filename)
@@ -9,7 +32,6 @@ def excel_file_to_list(filename: str):
     names_list = df_names.values.tolist()
     names_list = [name[1]+' '+name[0] for name in names_list]
     return names_list
-
 
 def welcome():
     '''Display the welcome message'''
@@ -102,9 +124,9 @@ Please enter the number of the table: '''))
 
 
 def main():
-    '''Main function'''
-    openspace = OpenSpace(6,4)
+    '''Main function'''    
     welcome()
+    openspace = create_openspace()
     while True:
         try:
             user_choice = int(input(menu()))

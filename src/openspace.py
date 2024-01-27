@@ -4,7 +4,8 @@ from .table import Table
 from tabulate import tabulate 
 
 class OpenSpace:
-    '''An open space is a place where a group of people can sit. It has a capacity and a list of tables'''
+    '''An OpenSpace class is a place where a group of people can sit. 
+Attributes of class: number of tables, number of seats for each of tables and a list of tables.'''
     openspace_count = 0
     def __init__(self, number_of_tables, table_capacity):
         self.number_of_tables = number_of_tables
@@ -60,6 +61,3 @@ class OpenSpace:
         else:
             print(f'All tables are free!\n')
         return None 
-
-    def store(filename):
-        pass
