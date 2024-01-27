@@ -43,7 +43,7 @@ class Table:
     def assign_seat(self, name):
         if self.has_free_spot():
             while True:
-                seat = self.seats[randint(0,3)]
+                seat = self.seats[randint(0,self.capacity-1)]
                 if seat.free:
                     seat.set_occupant(name)
                     break

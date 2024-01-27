@@ -17,7 +17,7 @@ Attributes of class: number of tables, number of seats for each of tables and a 
         print(f'\nOrganizing {len(names)} people in {self.number_of_tables} tables...\n')
         for name in names:                
             while True:
-                table = self.tables[randint(0,5)]
+                table = self.tables[randint(0,self.number_of_tables-1)]
                 if table.has_free_spot():
                     table.assign_seat(name)
                     break

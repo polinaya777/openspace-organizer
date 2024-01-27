@@ -67,15 +67,28 @@ def handel_menu_choice(choice: int, openspace: OpenSpace):
             try:
                 path = input('Please indicate the path to an Excel file or press Enter for using default file: ')
                 if path:
-                    names = excel_file_to_list(path)
+                    names_list = excel_file_to_list(path)
                     break
                 else:
-                    names = excel_file_to_list('colleagues2.xlsx')
+                    names_list = excel_file_to_list('colleagues2.xlsx')
                     break
             except:
                 print('Please enter a valid path!\n')
-        print(f'\nNames list to assign: {names}')
-        openspace.organize(names)
+        free_seats = sum([seat.free for table in openspace.tables for seat in table.seats])
+        total_seats = openspace.number_of_tables*openspace.tables[0].capacity
+        print(f'\nWe have {free_seats} free seats in the OpenSpace.')
+        print(f'\nNames list to assign: {names_list}')
+        try:                
+            if len(names_list) <= free_seats:
+                openspace.organize(names_list)
+                return True
+            elif len(names_list) > total_seats:
+                print(f'''There are not enough seats for {len(names_list)} people in this OpenSpace!\n''')
+            else:
+                print(f'''There are not enough free seats for {len(names_list)} people!
+You can add maximum {free_seats} people or at first remove people from the OpenSpace.\n''')
+        except:
+            print('Something went wrong with organizing people\n')
     
     elif choice == 3:        
         while True:
