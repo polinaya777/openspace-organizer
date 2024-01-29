@@ -27,11 +27,17 @@ Attributes of class: number of tables, number of seats for each of tables and a 
     
     def make_df(self):
         '''Make a Pandas DataFrame of the open space'''
-        dict_of_seats = {'Seat_'+str(i+1): [table.seats[i].ocupant for table in self.tables] for i in range(self.tables[0].capacity)}
-        columns_seats = ['Seat_'+str(i) for i in range(1,self.tables[0].capacity+1)]
-        index_seats = ['Table_'+str(i) for i in range(1,self.number_of_tables+1)]
-        openspace_seats_df = pd.DataFrame(dict_of_seats, columns=columns_seats, index=index_seats)
-        return openspace_seats_df
+        if self.number_of_tables >= self.tables[0].capacity:
+            dict_of_seats = {'Seat_'+str(i+1): [table.seats[i].ocupant for table in self.tables] for i in range(self.tables[0].capacity)}
+            columns_seats = ['Seat_'+str(i) for i in range(1,self.tables[0].capacity+1)]
+            index_seats = ['Table_'+str(i) for i in range(1,self.number_of_tables+1)]
+            openspace_df = pd.DataFrame(dict_of_seats, columns=columns_seats, index=index_seats)
+        else:
+            dict_of_tables = {'Table_'+str(table.table_number): [seat.ocupant for seat in table.seats] for table in self.tables}
+            columns_tables = ['Table_'+str(i) for i in range(1,self.number_of_tables+1)]
+            index_tables = ['Seat_'+str(i) for i in range(1,self.tables[0].capacity+1)]
+            openspace_df = pd.DataFrame(dict_of_tables, columns=columns_tables, index=index_tables)
+        return openspace_df
 
     def display_df(self):
         '''Display the open space through a Pandas DataFrame and dictionary of seats'''        
@@ -39,12 +45,12 @@ Attributes of class: number of tables, number of seats for each of tables and a 
         free_seats = sum([seat.free for table in self.tables for seat in table.seats])
         print(f'Open space with {self.number_of_tables} tables with total {total_seats} seats from which {total_seats - free_seats} are occupied:')
         print(tabulate(self.make_df(), headers='keys', tablefmt='fancy_grid'))
-        if all(not table.has_free_spot() for table in self.tables):
+        if not free_seats:
             print(f'All tables are occupied!\n')
-        elif any(table.has_free_spot() for table in self.tables):
-            print(f'We still have {free_seats} free seats!\n')
-        else:
+        elif free_seats == total_seats:
             print(f'All tables are free!\n')
+        else:
+            print(f'We still have {free_seats} free seats!\n')
         return None
     
     def display_print(self):
